@@ -1,9 +1,9 @@
 #include <windows.h>
 
-#include "main.hpp"
+#include "game_main.hpp"
 
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-	main();
+	game_main();
 
 	return 0;
 }

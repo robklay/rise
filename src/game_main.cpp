@@ -1,8 +1,8 @@
-#include "main.hpp"
+#include "game_main.hpp"
 
 #include "game.hpp"
 
-void main() {
+void game_main() {
 	Game game;
 	game.run();
 }

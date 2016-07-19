@@ -1,5 +1,7 @@
-#include "main.hpp"
+#include "game_main.hpp"
 
 int main(int argc, char** argv) {
-	main();
+	game_main();
+
+	return 0;
 }
