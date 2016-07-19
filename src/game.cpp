@@ -6,6 +6,10 @@
 #include "scene.hpp"
 #include "scenes/game_scene.hpp"
 
+constexpr double Game::STEPS_PER_SECOND;
+constexpr double Game::TIME_STEP;
+constexpr double Game::MAX_STEP_SECONDS;
+
 bool Game::_instantiated = false;
 
 Game::Game() :
