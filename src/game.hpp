@@ -20,11 +20,6 @@ public:
 	sf::RenderWindow window;
 
 private:
-	void process_events();
-	void process_realtime_input();
-	void update();
-	void render();
-
 	static bool _instantiated;
 
 	bool _running;

@@ -41,14 +41,40 @@ void Game::run() {
 	_step_clock.start();
 	while (_running) {
 		double elapsed_ms = _step_clock.elapsed_time(rok::Clock::Unit::MILLISECONDS);
-		_tick_time = std::min(elapsed_ms / 1000, MAX_STEP_SECONDS);
+		_tick_time =
+			std::min(elapsed_ms / (double) rok::Clock::Unit::MILLISECONDS, MAX_STEP_SECONDS);
 
 		_step_clock.start();
 
-		process_events();
-		process_realtime_input();
-		update();
-		render();
+		// Process SFML events.
+		sf::Event event;
+		while (window.pollEvent(event) != 0) {
+			if (event.type == sf::Event::Closed) {
+				_running = false;
+			}
+			else {
+				_active_scene->process_event(event);
+			}
+		}
+
+		// Process realtime input.
+		_active_scene->process_realtime_input();
+
+		// Update the game.
+		_accumulator += _tick_time;
+		while (_accumulator >= TIME_STEP) {
+			_accumulator -= TIME_STEP;
+
+			_next_scene = _active_scene->update();
+			if (_next_scene == _active_scene) {
+				_next_scene = nullptr;
+			}
+		}
+
+		// Render the game.
+		window.clear();
+		_active_scene->render();
+		window.display();
 
 		if (_next_scene) {
 			delete _active_scene;
@@ -58,39 +84,4 @@ void Game::run() {
 	}
 
 	window.close();
-}
-
-void Game::process_events() {
-	sf::Event event;
-	while (window.pollEvent(event) != 0) {
-		if (event.type == sf::Event::Closed) {
-			_running = false;
-		}
-		else {
-			_active_scene->process_event(event);
-		}
-	}
-}
-
-void Game::process_realtime_input() {
-	_active_scene->process_realtime_input();
-}
-
-void Game::update() {
-	_accumulator += _tick_time;
-	while (_accumulator >= TIME_STEP) {
-		_accumulator -= TIME_STEP;
-
-		_next_scene = _active_scene->update();
-		if (_next_scene == _active_scene) {
-			_next_scene = nullptr;
-		}
-
-	}
-}
-
-void Game::render() {
-	window.clear();
-	_active_scene->render();
-	window.display();
 }
