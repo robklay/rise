@@ -5,7 +5,7 @@
 class Scene {
 public:
 	Scene(sf::RenderWindow& window);
-	virtual ~Scene() {}
+	virtual ~Scene() = default;
 
 	virtual void process_event(const sf::Event event) = 0;
 	virtual void process_realtime_input() = 0;
