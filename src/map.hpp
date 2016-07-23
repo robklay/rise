@@ -12,7 +12,7 @@
 template <typename T>
 rok::Matrix<T> matrix_from_sf_image(const sf::Image& sf_image) {
 	static_assert(std::is_integral<T>::value,
-	              "matrix_from_sf_image() only supports integral types");
+	              "matrix_from_sf_image() only supports types int32 and uint32");
 
 	rok::Matrix<T> matrix;
 	sf::Vector2u size = sf_image.getSize();
