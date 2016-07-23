@@ -56,6 +56,7 @@ public:
 	rok::int32 size_y() const;
 
 	void set_heightmap(const rok::Matrix<rok::int32> matrix);
+	const rok::Matrix<rok::int32>& heightmap() const;
 
 private:
 	const rok::int32 _size_x;
