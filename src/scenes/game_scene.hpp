@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../scene.hpp"
-#include <SFML/Audio.hpp>
 
 class GameScene : public Scene {
 public:
