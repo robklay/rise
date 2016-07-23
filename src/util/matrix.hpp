@@ -20,7 +20,7 @@ public:
 	int32 size_x() const;
 	int32 size_y() const;
 
-	// Returns a direct pointer to the memory array used.
+	// Returns a direct pointer to the memory array used internally.
 	const T* data() const;
 
 	void set_element(const int32 x, const int32 y, const T color);
