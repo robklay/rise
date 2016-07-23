@@ -2,8 +2,6 @@
 
 #include <vector>
 
-#include <SFML/Graphics.hpp>
-
 #include "types.hpp"
 
 namespace rok {

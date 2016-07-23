@@ -2,6 +2,8 @@
 
 #include <type_traits>
 
+#include <SFML/Graphics.hpp>
+
 #include "util/matrix.hpp"
 #include "util/types.hpp"
 
