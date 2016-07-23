@@ -27,6 +27,27 @@ rok::Matrix<T> matrix_from_sf_image(const sf::Image& sf_image) {
 	return matrix;
 }
 
+// Creates and returns an sf::Image from a Matrix.
+// Only supports Matrices of types int32 and uint32.
+template <typename T>
+sf::Image sf_image_from_matrix(const rok::Matrix<T>& matrix) {
+	static_assert(std::is_same<T, rok::int32>::value && std::is_same<T, rok::int32>::value,
+	              "sf_image_from_matrix() only supports Matrices of types int32 and uint32");
+
+	std::vector<sf::Uint8> pixels;
+	for (int i = 0; i < matrix.size_x() * matrix.size_y(); ++i) {
+		sf::Uint8* pixel = static_cast<sf::Uint8*>(&matrix.data()[i]);
+		for (int c = 0; c < 4; ++c) {
+			pixels.push_back(pixel[c]);
+		}
+	}
+
+	sf::Image sf_image;
+	sf_image.create(matrix.size_x(), matrix.size_y(), pixels.data());
+
+	return sf_image;
+}
+
 class Map {
 public:
 	Map(const rok::int32 x = 0, const rok::int32 y = 0);
