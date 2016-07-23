@@ -12,6 +12,6 @@ rok::int32 Map::size_y() const {
 	return _size_y;
 }
 
-void Map::set_heightmap_image(const rok::Image image) {
-	_heightmap_image = image;
+void Map::set_heightmap(const rok::Matrix<rok::int32> matrix) {
+	_heightmap = matrix;
 }

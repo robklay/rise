@@ -1,6 +1,6 @@
 #pragma once
 
-#include "util/image.hpp"
+#include "util/matrix.hpp"
 #include "util/types.hpp"
 
 class Map {
@@ -10,12 +10,12 @@ public:
 	rok::int32 size_x() const;
 	rok::int32 size_y() const;
 
-	void set_heightmap_image(const rok::Image image);
+	void set_heightmap(const rok::Matrix<rok::int32> matrix);
 
 private:
 	const rok::int32 _size_x;
 	const rok::int32 _size_y;
 
-	rok::Image _heightmap_image;
-	rok::Image _terrain_image;
+	rok::Matrix<rok::int32> _heightmap;
+	rok::Matrix<rok::int32> _terrain;
 };
