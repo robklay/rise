@@ -7,12 +7,12 @@
 #include "util/matrix.hpp"
 #include "util/types.hpp"
 
-// Creates and returns a matrix of the desired type based on an sf::Image.
+// Creates and returns a Matrix of the desired type based on an sf::Image.
+// Only supports types int32 and uint32.
 template <typename T>
 rok::Matrix<T> matrix_from_sf_image(const sf::Image& sf_image) {
-	// This function probably shouldn't support non-integral types.
 	static_assert(std::is_integral<T>::value,
-	              "matrix_from_sf_image() only supports integral types.");
+	              "matrix_from_sf_image() only supports integral types");
 
 	rok::Matrix<T> matrix;
 	sf::Vector2u size = sf_image.getSize();
