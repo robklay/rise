@@ -9,17 +9,20 @@
 template <typename T>
 rok::Matrix<T> matrix_from_sf_image(const sf::Image& sf_image) {
 	// This function probably shouldn't support non-integral types.
-	static_assert(std::is_integral<T>);
+	static_assert(std::is_integral<T>::value,
+	              "matrix_from_sf_image() only supports integral types.");
 
 	rok::Matrix<T> matrix;
 	sf::Vector2u size = sf_image.getSize();
 
 	matrix.resize(size.x, size.y);
-	for (int i = 0; i < size.x; ++i) {
-		for (int j = 0; j < size.y; ++j) {
+	for (size_t i = 0; i < size.x; ++i) {
+		for (size_t j = 0; j < size.y; ++j) {
 			matrix.set_element(i, j, static_cast<T>(sf_image.getPixel(i, j).toInteger()));
 		}
 	}
+
+	return matrix;
 }
 
 class Map {
