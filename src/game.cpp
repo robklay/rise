@@ -14,7 +14,6 @@ bool Game::_instantiated = false;
 
 Game::Game() :
 _running(false),
-_active_scene(new GameScene(window)),
 _next_scene(nullptr),
 _tick_time(0.0),
 _accumulator(0.0) {
@@ -25,6 +24,8 @@ _accumulator(0.0) {
 	context_settings.antialiasingLevel = 8;
 	window.create(sf::VideoMode(1600, 900), "Rise", sf::Style::Close, context_settings);
 	window.setVerticalSyncEnabled(true);
+
+	_active_scene = new GameScene(window);
 }
 
 Game::~Game() {
