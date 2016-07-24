@@ -16,8 +16,8 @@ Matrix<T>::Matrix(const Matrix<T>& matrix) :
 _size_x(matrix.size_x()),
 _size_y(matrix.size_y()) {
 	if (this != &matrix) {
-		_elements.resize(matrix._size_x * matrix._size_y);
-		std::copy_n(_elements.data(), _size_x * _size_y, _elements.begin());
+		resize(matrix._size_x, matrix._size_y);
+		std::copy_n(matrix.data(), _size_x * _size_y, _elements.begin());
 	}
 }
 
@@ -25,7 +25,7 @@ template <typename T>
 Matrix<T>& Matrix<T>::operator=(const Matrix<T>& matrix) {
 	if (this != &matrix) {
 		resize(matrix._size_x, matrix._size_y);
-		std::copy_n(_elements.data(), _size_x * _size_y, _elements.begin());
+		std::copy_n(matrix.data(), _size_x * _size_y, _elements.begin());
 	}
 
 	return *this;
