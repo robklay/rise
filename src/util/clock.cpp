@@ -4,7 +4,6 @@
 
 namespace rok {
 
-using Nanoseconds = std::chrono::nanoseconds;
 using SteadyClock = std::chrono::steady_clock;
 
 Clock::Clock() :
@@ -15,23 +14,22 @@ void Clock::start() {
 	_start_time = SteadyClock::now();
 }
 
-double Clock::elapsed_time(const Unit unit) {
+double Clock::elapsed_time(const Unit unit) const {
 	assert(_started);
 
 	const SteadyClock::time_point current_time = SteadyClock::now();
-	const Nanoseconds elapsed_time = current_time - _start_time;
+	const auto elapsed_time =
+		std::chrono::duration_cast<std::chrono::nanoseconds>(current_time - _start_time).count();
+
 	switch (unit) {
 	case Unit::SECONDS:
-		return std::chrono::duration_cast<Nanoseconds>(elapsed_time).count()
-			/ static_cast<double>(Unit::NANOSECONDS);
+		return elapsed_time / static_cast<double>(Unit::NANOSECONDS);
 	case Unit::MILLISECONDS:
-		return std::chrono::duration_cast<Nanoseconds>(elapsed_time).count()
-			/ static_cast<double>(Unit::MICROSECONDS);
+		return elapsed_time / static_cast<double>(Unit::MICROSECONDS);
 	case Unit::MICROSECONDS:
-		return std::chrono::duration_cast<Nanoseconds>(elapsed_time).count()
-			/ static_cast<double>(Unit::MILLISECONDS);
+		return elapsed_time / static_cast<double>(Unit::MILLISECONDS);
 	case Unit::NANOSECONDS:
-		return static_cast<double>(std::chrono::duration_cast<Nanoseconds>(elapsed_time).count());
+		return static_cast<double>(elapsed_time);
 	default:
 		assert(false);
 	}
