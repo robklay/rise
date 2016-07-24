@@ -54,12 +54,16 @@ public:
 	rok::Coordinate size() const;
 
 	void set_heightmap(const rok::Matrix<rok::uint32> matrix);
-	const rok::Matrix<rok::uint32>& heightmap() const;
-	const rok::Matrix<rok::uint32>& terrain() const;
+	//const rok::Matrix<rok::uint32>& heightmap() const;
+	//const rok::Matrix<rok::uint32>& terrain() const;
+
+	void draw(sf::RenderWindow& window) const;
 
 private:
 	const rok::Coordinate _size;
 
 	rok::Matrix<rok::uint32> _heightmap;
 	rok::Matrix<rok::uint32> _terrain;
+	sf::Texture _terrain_texture;
+	sf::Sprite _terrain_sprite;
 };

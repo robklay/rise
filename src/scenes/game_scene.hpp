@@ -23,7 +23,4 @@ private:
 
 	sf::View _view;
 	double _camera_zoom;
-
-	sf::Texture _terrain_texture;
-	sf::Sprite _terrain_sprite;
 };

@@ -15,9 +15,6 @@ _camera_zoom(1.0f) {
 	sf::Image heightmap_image;
 	heightmap_image.loadFromFile("data/heightmap.png");
 	_map.set_heightmap(matrix_from_sf_image<rok::uint32>(heightmap_image));
-
-	_terrain_texture.loadFromImage(sf_image_from_matrix(_map.terrain()));
-	_terrain_sprite.setTexture(_terrain_texture);
 }
 
 void GameScene::process_event(const sf::Event event) {
@@ -61,5 +58,5 @@ Scene* GameScene::update() {
 
 void GameScene::render() {
 	_window.setView(_view);
-	_window.draw(_terrain_sprite);
+	_map.draw(_window);
 }
