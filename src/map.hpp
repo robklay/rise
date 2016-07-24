@@ -35,11 +35,11 @@ sf::Image sf_image_from_matrix(const rok::Matrix<T>& matrix) {
 	              "sf_image_from_matrix() only supports Matrices of types int32 and uint32");
 
 	sf::Image sf_image;
-	sf_image.create(matrix.size_x(), matrix.size_y());
+	sf_image.create(matrix.size().x, matrix.size().y);
 
-	for (int i = 0; i < matrix.size_x(); ++i) {
-		for (int j = 0; j < matrix.size_y(); ++j) {
-			sf::Uint8* pixel = (sf::Uint8*) &(matrix.data()[i + j * matrix.size_x()]);
+	for (int i = 0; i < matrix.size().x; ++i) {
+		for (int j = 0; j < matrix.size().y; ++j) {
+			sf::Uint8* pixel = (sf::Uint8*) &(matrix.data()[i + j * matrix.size().x]);
 			sf_image.setPixel(i, j, sf::Color(pixel[3], pixel[2], pixel[1], pixel[0]));
 		}
 	}
@@ -49,18 +49,16 @@ sf::Image sf_image_from_matrix(const rok::Matrix<T>& matrix) {
 
 class Map {
 public:
-	Map(const rok::int32 x = 0, const rok::int32 y = 0);
+	Map(const rok::Coordinate size = { 0, 0 });
 
-	rok::int32 size_x() const;
-	rok::int32 size_y() const;
+	rok::Coordinate size() const;
 
 	void set_heightmap(const rok::Matrix<rok::uint32> matrix);
 	const rok::Matrix<rok::uint32>& heightmap() const;
 	const rok::Matrix<rok::uint32>& terrain() const;
 
 private:
-	const rok::int32 _size_x;
-	const rok::int32 _size_y;
+	const rok::Coordinate _size;
 
 	rok::Matrix<rok::uint32> _heightmap;
 	rok::Matrix<rok::uint32> _terrain;

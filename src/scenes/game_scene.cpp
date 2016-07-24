@@ -7,7 +7,7 @@ constexpr double GameScene::CAMERA_MAX_ZOOM;
 
 GameScene::GameScene(sf::RenderWindow& window) :
 Scene(window),
-_map(5632, 2048),
+_map({ 5632, 2048 }),
 _view(sf::FloatRect(0.0f, 0.0f,
                     static_cast<float>(window.getSize().x),
                     static_cast<float>(window.getSize().y))),

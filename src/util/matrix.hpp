@@ -2,6 +2,7 @@
 
 #include <vector>
 
+#include "coordinate.hpp"
 #include "types.hpp"
 
 namespace rok {
@@ -10,13 +11,12 @@ namespace rok {
 template <typename T>
 class Matrix {
 public:
-	Matrix(const int32 x = 0, const int32 y = 0);
+	Matrix(const Coordinate size = { 0, 0 });
 	Matrix(const Matrix<T>& matrix);
 	Matrix<T>& operator=(const Matrix<T>& matrix);
 
 	void resize(const int32 x, const int32 y);
-	int32 size_x() const;
-	int32 size_y() const;
+	Coordinate size() const;
 
 	// Returns a direct pointer to the memory array used internally.
 	const T* data() const;
@@ -25,8 +25,7 @@ public:
 	T element(const int32 x, const int32 y) const;
 
 private:
-	int32 _size_x;
-	int32 _size_y;
+	Coordinate _size;
 	std::vector<T> _elements;
 };
 
