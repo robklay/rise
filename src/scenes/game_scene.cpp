@@ -28,8 +28,15 @@ void GameScene::process_event(const sf::Event event) {
 			float zoom_factor =
 				1.0f + event.mouseWheelScroll.delta * static_cast<float>(-CAMERA_ZOOM_SPEED);
 
+			if (_camera_zoom * zoom_factor < CAMERA_MIN_ZOOM) {
+				zoom_factor = static_cast<float>(_camera_zoom / CAMERA_MIN_ZOOM);
+			}
+			if (_camera_zoom * zoom_factor > CAMERA_MAX_ZOOM) {
+				zoom_factor = static_cast<float>(_camera_zoom / CAMERA_MAX_ZOOM);
+			}
+
 			_camera_zoom *= zoom_factor;
-			_camera_zoom = rok::clamp(_camera_zoom, CAMERA_MIN_ZOOM, CAMERA_MAX_ZOOM);
+			//_camera_zoom = rok::clamp(_camera_zoom, CAMERA_MIN_ZOOM, CAMERA_MAX_ZOOM);
 			_view.zoom(zoom_factor);
 		}
 	}

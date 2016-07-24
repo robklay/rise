@@ -13,6 +13,7 @@ public:
 	virtual void render();
 
 private:
+	// TODO: Make camera moving and zooming better.
 	static constexpr double CAMERA_SPEED = 5.0;
 	static constexpr double CAMERA_ZOOM_SPEED = 0.25;
 	static constexpr double CAMERA_MIN_ZOOM = 0.25;
