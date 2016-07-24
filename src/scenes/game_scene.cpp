@@ -23,7 +23,7 @@ _camera_zoom(1.0f) {
 }
 
 void GameScene::process_event(const sf::Event event) {
-	/*if (event.type == sf::Event::MouseWheelScrolled) {
+	if (event.type == sf::Event::MouseWheelScrolled) {
 		if (event.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel) {
 			float zoom_factor =
 				1.0f + event.mouseWheelScroll.delta * static_cast<float>(-CAMERA_ZOOM_SPEED);
@@ -32,11 +32,11 @@ void GameScene::process_event(const sf::Event event) {
 			_camera_zoom = rok::clamp(_camera_zoom, CAMERA_MIN_ZOOM, CAMERA_MAX_ZOOM);
 			_view.zoom(zoom_factor);
 		}
-	}*/
+	}
 }
 
 void GameScene::process_realtime_input() {
-	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 		_view.move(static_cast<float>(-CAMERA_SPEED * _camera_zoom), 0.0f);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
@@ -47,7 +47,7 @@ void GameScene::process_realtime_input() {
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 		_view.move(0.0f, static_cast<float>(CAMERA_SPEED * _camera_zoom));
-	}*/
+	}
 }
 
 Scene* GameScene::update() {
