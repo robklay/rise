@@ -30,6 +30,6 @@ private:
 	std::vector<T> _elements;
 };
 
-}
+} // namespace rok
 
 #include "matrix.cpp"

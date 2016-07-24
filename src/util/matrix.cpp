@@ -67,4 +67,4 @@ T Matrix<T>::element(const int32 x, const int32 y) const {
 	return _elements[x + y * _size_x];
 }
 
-}
+} // namespace rok
