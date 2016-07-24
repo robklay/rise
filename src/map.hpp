@@ -34,16 +34,15 @@ sf::Image sf_image_from_matrix(const rok::Matrix<T>& matrix) {
 	static_assert(std::is_same<T, rok::int32>::value && std::is_same<T, rok::int32>::value,
 	              "sf_image_from_matrix() only supports Matrices of types int32 and uint32");
 
-	std::vector<sf::Uint8> pixels;
-	for (int i = 0; i < matrix.size_x() * matrix.size_y(); ++i) {
-		sf::Uint8* pixel = static_cast<sf::Uint8*>(&matrix.data()[i]);
-		for (int c = 0; c < 4; ++c) {
-			pixels.push_back(pixel[c]);
+	sf::Image sf_image;
+	sf_image.create(matrix.size_x(), matrix.size_y());
+
+	for (int i = 0; i < matrix.size_x(); ++i) {
+		for (int j = 0; j < matrix.size_y(); ++j) {
+			sf::Uint8* pixel = (sf::Uint8*) &(matrix.data()[i + j * matrix.size_x()]);
+			sf_image.setPixel(i, j, sf::Color(pixel[3], pixel[2], pixel[1], pixel[0]));
 		}
 	}
-
-	sf::Image sf_image;
-	sf_image.create(matrix.size_x(), matrix.size_y(), pixels.data());
 
 	return sf_image;
 }
