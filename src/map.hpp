@@ -11,7 +11,7 @@
 // Only supports types int32 and uint32.
 template <typename T>
 rok::Matrix<T> matrix_from_sf_image(const sf::Image& sf_image) {
-	static_assert(std::is_integral<T>::value,
+	static_assert(std::is_same<T, rok::int32>::value || std::is_same<T, rok::uint32>::value,
 	              "matrix_from_sf_image() only supports types int32 and uint32");
 
 	rok::Matrix<T> matrix;
@@ -54,13 +54,14 @@ public:
 	rok::int32 size_x() const;
 	rok::int32 size_y() const;
 
-	void set_heightmap(const rok::Matrix<rok::int32> matrix);
-	const rok::Matrix<rok::int32>& heightmap() const;
+	void set_heightmap(const rok::Matrix<rok::uint32> matrix);
+	const rok::Matrix<rok::uint32>& heightmap() const;
+	const rok::Matrix<rok::uint32>& terrain() const;
 
 private:
 	const rok::int32 _size_x;
 	const rok::int32 _size_y;
 
-	rok::Matrix<rok::int32> _heightmap;
-	rok::Matrix<rok::int32> _terrain;
+	rok::Matrix<rok::uint32> _heightmap;
+	rok::Matrix<rok::uint32> _terrain;
 };

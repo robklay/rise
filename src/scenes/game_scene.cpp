@@ -14,9 +14,9 @@ _view(sf::FloatRect(0.0f, 0.0f,
 _camera_zoom(1.0f) {
 	sf::Image heightmap_image;
 	heightmap_image.loadFromFile("data/heightmap.png");
-	//_map.set_heightmap(matrix_from_sf_image<rok::int32>(heightmap_image))
+	_map.set_heightmap(matrix_from_sf_image<rok::uint32>(heightmap_image));
 
-	_terrain_texture.loadFromImage(heightmap_image);
+	_terrain_texture.loadFromImage(sf_image_from_matrix(_map.terrain()));
 	_terrain_sprite.setTexture(_terrain_texture);
 }
 
