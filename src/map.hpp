@@ -31,7 +31,7 @@ rok::Matrix<T> matrix_from_sf_image(const sf::Image& sf_image) {
 // Only supports Matrices of types int32 and uint32.
 template <typename T>
 sf::Image sf_image_from_matrix(const rok::Matrix<T>& matrix) {
-	static_assert(std::is_same<T, rok::int32>::value && std::is_same<T, rok::int32>::value,
+	static_assert(std::is_same<T, rok::int32>::value || std::is_same<T, rok::uint32>::value,
 	              "sf_image_from_matrix() only supports Matrices of types int32 and uint32");
 
 	sf::Image sf_image;
