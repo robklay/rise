@@ -1,7 +1,5 @@
 #include "game_scene.hpp"
 
-#include "../util/math.hpp"
-
 constexpr double GameScene::CAMERA_SPEED;
 constexpr double GameScene::CAMERA_ZOOM_SPEED;
 constexpr double GameScene::CAMERA_MIN_ZOOM;
