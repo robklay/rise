@@ -51,6 +51,27 @@ sf::Image sf_image_from_matrix(const rok::Matrix<T>& matrix) {
 	return sf_image;
 }
 
+enum class Terrain : rok::uint8 {
+	OCEAN,
+	GRASSLAND,
+	HIGHLAND,
+};
+
+inline sf::Color terrain_color(const Terrain terrain) {
+	switch (terrain) {
+	case Terrain::OCEAN:
+		return sf::Color(0, 51, 204);
+	case Terrain::GRASSLAND:
+		return sf::Color(0, 153, 0);
+	case Terrain::HIGHLAND:
+		return sf::Color(102, 51, 0);
+	default:
+		assert(false);
+	}
+
+	return sf::Color::Black;
+}
+
 class Map {
 public:
 	Map(const rok::Coordinate size = { 0, 0 });
@@ -67,8 +88,7 @@ private:
 	const rok::Coordinate _size;
 
 	rok::Matrix<rok::uint8> _heightmap;
-	// TODO: Allow terrain to be a uint8 matrix.
-	rok::Matrix<rok::uint32> _terrain;
+	rok::Matrix<Terrain> _terrain;
 	std::vector<FeaturePtr> _features;
 
 	sf::Texture _terrain_texture;
