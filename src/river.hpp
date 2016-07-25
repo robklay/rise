@@ -7,7 +7,7 @@ public:
 	River(const rok::CoordinateList& coords);
 	virtual ~River() = default;
 
-	virtual void draw(sf::RenderWindow& window) const override;
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
 	sf::Texture _texture;

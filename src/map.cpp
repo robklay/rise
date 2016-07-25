@@ -1,7 +1,5 @@
 #include "map.hpp"
 
-#include "util/sfml_helpers.hpp"
-
 #include "river.hpp"
 
 Map::Map(const rok::Coordinate size) :
@@ -61,9 +59,9 @@ void Map::set_heightmap(const rok::Matrix<rok::uint32>& matrix) {
 	_terrain_sprite.setTexture(_terrain_texture);
 }
 
-void Map::draw(sf::RenderWindow& window) const {
-	window.draw(_terrain_sprite);
+void Map::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+	target.draw(_terrain_sprite, states);
 	for (const FeaturePtr& f : _features) {
-		f->draw(window);
+		target.draw(*f, states);
 	}
 }

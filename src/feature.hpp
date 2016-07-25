@@ -5,9 +5,10 @@
 #include <SFML/Graphics.hpp>
 
 #include "util/coordinate.hpp"
+#include "util/sfml_helpers.hpp"
 #include "util/types.hpp"
 
-class Feature {
+class Feature : public rok::Drawable {
 public:
 	Feature(const rok::CoordinateList& coords);
 	virtual ~Feature() = default;
@@ -16,7 +17,7 @@ public:
 	const rok::Coordinate* coords() const;
 	int num_coords() const;
 
-	virtual void draw(sf::RenderWindow& window) const = 0;
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override = 0;
 
 private:
 	rok::CoordinateList _coords;

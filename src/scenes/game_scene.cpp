@@ -9,15 +9,10 @@ constexpr double GameScene::CAMERA_MAX_ZOOM;
 
 GameScene::GameScene(sf::RenderWindow& window) :
 Scene(window),
-_map({ 5632, 2048 }),
 _view(sf::FloatRect(0.0f, 0.0f,
                     static_cast<float>(window.getSize().x),
                     static_cast<float>(window.getSize().y))),
-_camera_zoom(1.0f) {
-	sf::Image heightmap_image;
-	heightmap_image.loadFromFile("data/heightmap.png");
-	_map.set_heightmap(rok::matrix_from_sf_image<rok::uint32>(heightmap_image));
-}
+_camera_zoom(1.0f) {}
 
 void GameScene::process_event(const sf::Event event) {
 	if (event.type == sf::Event::MouseWheelScrolled) {
@@ -60,5 +55,5 @@ Scene* GameScene::update() {
 
 void GameScene::draw() {
 	_window.setView(_view);
-	_map.draw(_window);
+	_window.draw(_world);
 }

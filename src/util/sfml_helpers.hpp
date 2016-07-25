@@ -9,7 +9,7 @@
 
 namespace rok {
 
-// Functions that help deal with a using a mixure of SFML and Rok utilities in the code.
+// Tools that help deal with a using a mixure of SFML and Rok utilities in the code.
 // This file keeps the game's code relatively independent of SFML so that if needed,
 // SFML can be removed.
 
@@ -72,5 +72,12 @@ Color color_from_sf_color(const sf::Color sf_color);
 
 //Creates and returns an sf::Color from a rok::Color.
 sf::Color sf_color_from_color(const Color color);
+
+class Drawable : public sf::Drawable {
+public:
+	virtual ~Drawable() = default;
+
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override = 0;
+};
 
 } // namespace rok

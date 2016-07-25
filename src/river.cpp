@@ -16,6 +16,6 @@ Feature(coords) {
 	_sprite.setPosition(static_cast<float>(min.x), static_cast<float>(min.y));
 }
 
-void River::draw(sf::RenderWindow& window) const {
-	window.draw(_sprite);
+void River::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+	target.draw(_sprite, states);
 }

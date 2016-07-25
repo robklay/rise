@@ -6,6 +6,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "util/matrix.hpp"
+#include "util/sfml_helpers.hpp"
 #include "util/types.hpp"
 
 #include "feature.hpp"
@@ -31,15 +32,16 @@ inline sf::Color terrain_color(const Terrain terrain) {
 	return sf::Color::Black;
 }
 
-class Map {
+class Map : public rok::Drawable {
 public:
 	Map(const rok::Coordinate size = { 0, 0 });
+	virtual ~Map() = default;
 
 	rok::Coordinate size() const;
 
 	void set_heightmap(const rok::Matrix<rok::uint32>& matrix);
 
-	void draw(sf::RenderWindow& window) const;
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
 	using FeaturePtr = std::unique_ptr<Feature>;

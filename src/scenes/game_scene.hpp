@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../map.hpp"
+#include "../world.hpp"
 #include "../scene.hpp"
 
 class GameScene : public Scene {
@@ -19,7 +19,7 @@ private:
 	static constexpr double CAMERA_MIN_ZOOM = 0.25;
 	static constexpr double CAMERA_MAX_ZOOM = 4.0;
 
-	Map _map;
+	World _world;
 
 	sf::View _view;
 	double _camera_zoom;
