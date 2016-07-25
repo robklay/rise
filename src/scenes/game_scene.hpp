@@ -7,10 +7,10 @@ class GameScene : public Scene {
 public:
 	GameScene(sf::RenderWindow& window);
 
-	virtual void process_event(const sf::Event event);
-	virtual void process_realtime_input();
-	virtual Scene* update();
-	virtual void draw();
+	virtual void process_event(const sf::Event event) override;
+	virtual void process_realtime_input() override;
+	virtual Scene* update() override;
+	virtual void draw() override;
 
 private:
 	// TODO: Make camera moving and zooming better.
