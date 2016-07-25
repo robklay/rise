@@ -1,5 +1,7 @@
 #include "game_scene.hpp"
 
+#include "../util/sfml_helpers.hpp"
+
 constexpr double GameScene::CAMERA_SPEED;
 constexpr double GameScene::CAMERA_ZOOM_SPEED;
 constexpr double GameScene::CAMERA_MIN_ZOOM;
@@ -14,7 +16,7 @@ _view(sf::FloatRect(0.0f, 0.0f,
 _camera_zoom(1.0f) {
 	sf::Image heightmap_image;
 	heightmap_image.loadFromFile("data/heightmap.png");
-	_map.set_heightmap(matrix_from_sf_image<rok::uint32>(heightmap_image));
+	_map.set_heightmap(rok::matrix_from_sf_image<rok::uint32>(heightmap_image));
 }
 
 void GameScene::process_event(const sf::Event event) {

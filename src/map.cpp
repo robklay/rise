@@ -1,5 +1,7 @@
 #include "map.hpp"
 
+#include "util/sfml_helpers.hpp"
+
 #include "river.hpp"
 
 Map::Map(const rok::Coordinate size) :
@@ -34,53 +36,28 @@ void Map::set_heightmap(const rok::Matrix<rok::uint32>& matrix) {
 	}
 
 	_terrain.resize(_heightmap.size().x, _heightmap.size().y);
-	rok::Matrix<rok::uint32> _terrain_temp;
-	_terrain_temp.resize(_terrain.size().x, _terrain.size().y);
-
-	// TODO: Clean this up.
 	for (int i = 0; i < _size.x; ++i) {
 		for (int j = 0; j < _size.y; ++j) {
 			if (_heightmap.element(i, j) <= 94) {
 				_terrain.set_element(i, j, Terrain::OCEAN);
-
-				sf::Color sf_color = terrain_color(Terrain::OCEAN);
-				sf::Uint8 arr[4];
-				arr[0] = sf_color.r;
-				arr[1] = sf_color.g;
-				arr[2] = sf_color.b;
-				arr[3] = sf_color.a;
-				sf::Uint32 color = arr[0] << 24 | arr[1] << 16 | arr[2] << 8 | arr[3];
-
-				_terrain_temp.set_element(i, j, static_cast<rok::uint32>(color));
-			} else if (_heightmap.element(i, j) <= 128) {
+			} else if (_heightmap.element(i, j) <= 134) {
 				_terrain.set_element(i, j, Terrain::GRASSLAND);
-
-				sf::Color sf_color = terrain_color(Terrain::GRASSLAND);
-				sf::Uint8 arr[4];
-				arr[0] = sf_color.r;
-				arr[1] = sf_color.g;
-				arr[2] = sf_color.b;
-				arr[3] = sf_color.a;
-				sf::Uint32 color = arr[0] << 24 | arr[1] << 16 | arr[2] << 8 | arr[3];
-
-				_terrain_temp.set_element(i, j, static_cast<rok::uint32>(color));
 			} else {
 				_terrain.set_element(i, j, Terrain::HIGHLAND);
-
-				sf::Color sf_color = terrain_color(Terrain::HIGHLAND);
-				sf::Uint8 arr[4];
-				arr[0] = sf_color.r;
-				arr[1] = sf_color.g;
-				arr[2] = sf_color.b;
-				arr[3] = sf_color.a;
-				sf::Uint32 color = arr[0] << 24 | arr[1] << 16 | arr[2] << 8 | arr[3];
-
-				_terrain_temp.set_element(i, j, static_cast<rok::uint32>(color));
 			}
 		}
 	}
 
-	_terrain_texture.loadFromImage(sf_image_from_matrix(_terrain_temp));
+	rok::Matrix<rok::uint32> terrain_colors;
+	terrain_colors.resize(_terrain.size().x, _terrain.size().y);
+	for (int i = 0; i < terrain_colors.size().x; ++i) {
+		for (int j = 0; j < terrain_colors.size().y; ++j) {
+			rok::Color color = rok::color_from_sf_color(terrain_color(_terrain.element(i, j)));
+			terrain_colors.set_element(i, j, color.as_int());
+		}
+	}
+
+	_terrain_texture.loadFromImage(rok::sf_image_from_matrix(terrain_colors));
 	_terrain_sprite.setTexture(_terrain_texture);
 }
 
