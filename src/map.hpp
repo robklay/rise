@@ -1,11 +1,15 @@
 #pragma once
 
+#include <memory>
 #include <type_traits>
+#include <vector>
 
 #include <SFML/Graphics.hpp>
 
 #include "util/matrix.hpp"
 #include "util/types.hpp"
+
+#include "feature.hpp"
 
 // Creates and returns a Matrix of the desired type based on an sf::Image.
 // Only supports types int32 and uint32.
@@ -54,16 +58,18 @@ public:
 	rok::Coordinate size() const;
 
 	void set_heightmap(const rok::Matrix<rok::uint32> matrix);
-	//const rok::Matrix<rok::uint32>& heightmap() const;
-	//const rok::Matrix<rok::uint32>& terrain() const;
 
 	void draw(sf::RenderWindow& window) const;
 
 private:
+	using FeaturePtr = std::unique_ptr<Feature>;
+
 	const rok::Coordinate _size;
 
 	rok::Matrix<rok::uint32> _heightmap;
 	rok::Matrix<rok::uint32> _terrain;
+	std::vector<FeaturePtr> _features;
+
 	sf::Texture _terrain_texture;
 	sf::Sprite _terrain_sprite;
 };

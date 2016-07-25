@@ -1,7 +1,24 @@
 #include "map.hpp"
 
+#include "river.hpp"
+
 Map::Map(const rok::Coordinate size) :
-_size(size) {}
+_size(size) {
+	_features.emplace_back(new River(rok::CoordinateList({
+		{ 3450, 400 },
+		{ 3451, 400 },
+		{ 3452, 400 },
+		{ 3450, 401 },
+		{ 3451, 401 },
+		{ 3452, 401 },
+		{ 3450, 402 },
+		{ 3451, 402 },
+		{ 3452, 402 },
+		{ 3450, 403 },
+		{ 3451, 403 },
+		{ 3452, 403 },
+	})));
+}
 
 rok::Coordinate Map::size() const {
 	return _size;
@@ -25,14 +42,9 @@ void Map::set_heightmap(const rok::Matrix<rok::uint32> matrix) {
 	_terrain_sprite.setTexture(_terrain_texture);
 }
 
-/*const rok::Matrix<rok::uint32>& Map::heightmap() const {
-	return _heightmap;
-}
-
-const rok::Matrix<rok::uint32>& Map::terrain() const {
-	return _terrain;
-}*/
-
 void Map::draw(sf::RenderWindow& window) const {
 	window.draw(_terrain_sprite);
+	for (const FeaturePtr& f : _features) {
+		f->draw(window);
+	}
 }
