@@ -24,13 +24,19 @@ rok::Coordinate Map::size() const {
 	return _size;
 }
 
-void Map::set_heightmap(const rok::Matrix<rok::uint32> matrix) {
-	_heightmap = matrix;
+void Map::set_heightmap(const rok::Matrix<rok::uint32>& matrix) {
+	// Convert the 32-bit grayscale heightmap matrix into an 8-bit matrix.
+	_heightmap.resize(matrix.size().x, matrix.size().y);
+	for (int i = 0; i < matrix.size().x; ++i) {
+		for (int j = 0; j < matrix.size().y; ++j) {
+			_heightmap.set_element(i, j, (matrix.element(i, j) >> 8) & 0xFF);
+		}
+	}
 
 	_terrain.resize(_heightmap.size().x, _heightmap.size().y);
 	for (int i = 0; i < _size.x; ++i) {
 		for (int j = 0; j < _size.y; ++j) {
-			if (_heightmap.element(i, j) >> 24 >= 94) {
+			if (_heightmap.element(i, j) >= 94) {
 				_terrain.set_element(i, j, 0x008000FF);
 			} else {
 				_terrain.set_element(i, j, 0x0000B4FF);

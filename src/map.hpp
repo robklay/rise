@@ -57,7 +57,7 @@ public:
 
 	rok::Coordinate size() const;
 
-	void set_heightmap(const rok::Matrix<rok::uint32> matrix);
+	void set_heightmap(const rok::Matrix<rok::uint32>& matrix);
 
 	void draw(sf::RenderWindow& window) const;
 
@@ -66,7 +66,8 @@ private:
 
 	const rok::Coordinate _size;
 
-	rok::Matrix<rok::uint32> _heightmap;
+	rok::Matrix<rok::uint8> _heightmap;
+	// TODO: Allow terrain to be a uint8 matrix.
 	rok::Matrix<rok::uint32> _terrain;
 	std::vector<FeaturePtr> _features;
 
