@@ -80,4 +80,4 @@ void CoordinateList::reset_bounds() {
 	}
 }
 
-}
+} // namespace rok
