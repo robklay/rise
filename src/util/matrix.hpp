@@ -21,7 +21,7 @@ public:
 	// Returns a direct pointer to the memory array used internally.
 	const T* data() const;
 
-	void set_element(const int32 x, const int32 y, const T color);
+	void set_element(const int32 x, const int32 y, const T value);
 	T element(const int32 x, const int32 y) const;
 
 private:

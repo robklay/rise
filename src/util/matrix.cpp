@@ -47,10 +47,10 @@ const T* Matrix<T>::data() const {
 }
 
 template <typename T>
-void Matrix<T>::set_element(const int32 x, const int32 y, const T color) {
+void Matrix<T>::set_element(const int32 x, const int32 y, const T value) {
 	assert(x >= 0 && x <= _size.x && y >= 0 && y <= _size.y);
 
-	_elements[x + y * _size.x] = color;
+	_elements[x + y * _size.x] = value;
 }
 
 template <typename T>
