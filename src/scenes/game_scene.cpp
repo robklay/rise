@@ -56,7 +56,7 @@ Scene* GameScene::update() {
 	return this;
 }
 
-void GameScene::render() {
+void GameScene::draw() {
 	_window.setView(_view);
 	_map.draw(_window);
 }

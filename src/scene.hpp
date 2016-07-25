@@ -12,7 +12,7 @@ public:
 	// Returns the scene to be switched to at the end of the game tick.
 	// If no such switching is to occur, it should return "this".
 	virtual Scene* update() = 0;
-	virtual void render() = 0;
+	virtual void draw() = 0;
 
 protected:
 	sf::RenderWindow& _window;

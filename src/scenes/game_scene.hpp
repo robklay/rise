@@ -10,7 +10,7 @@ public:
 	virtual void process_event(const sf::Event event);
 	virtual void process_realtime_input();
 	virtual Scene* update();
-	virtual void render();
+	virtual void draw();
 
 private:
 	// TODO: Make camera moving and zooming better.

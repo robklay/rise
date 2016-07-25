@@ -72,9 +72,9 @@ void Game::run() {
 			}
 		}
 
-		// Render the game.
+		// Draw the game.
 		window.clear();
-		_active_scene->render();
+		_active_scene->draw();
 		window.display();
 
 		if (_next_scene) {
