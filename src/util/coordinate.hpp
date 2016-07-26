@@ -1,7 +1,5 @@
 #pragma once
 
-#include <algorithm>
-#include <cassert>
 #include <vector>
 
 #include "types.hpp"
@@ -15,13 +13,25 @@ struct Coordinate {
 	int32 y = 0;
 };
 
+inline bool operator==(Coordinate left, Coordinate right) {
+	return left.x == right.x && left.y == right.y;
+}
+
+inline bool operator!=(Coordinate left, Coordinate right) {
+	return left.x != right.x || left.y != right.y;
+}
+
+using CoordinateVector = std::vector<Coordinate>;
+
 class CoordinateList {
 public:
 	CoordinateList();
-	CoordinateList(const std::vector<Coordinate>& coords);
+	CoordinateList(const CoordinateVector& coords);
 
 	void add(const Coordinate coord);
 	void remove(const Coordinate coord);
+
+	bool contains(const Coordinate coord) const;
 
 	int size() const;
 
@@ -31,25 +41,17 @@ public:
 	Coordinate max() const;
 
 	// Returns a reference to the underlying vector used to store the coordinates.
-	const std::vector<Coordinate>& coords_vector() const;
+	const CoordinateVector& coords_vector() const;
 
 private:
 	void update_bounds(const Coordinate coord);
 	void reset_bounds();
 
-	std::vector<Coordinate> _coords;
+	CoordinateVector _coords;
 	int _size;
 
 	Coordinate _min;
 	Coordinate _max;
 };
-
-inline bool operator==(Coordinate left, Coordinate right) {
-	return left.x == right.x && left.y == right.y;
-}
-
-inline bool operator!=(Coordinate left, Coordinate right) {
-	return left.x != right.x || left.y != right.y;
-}
 
 } // namespace rok

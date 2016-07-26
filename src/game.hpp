@@ -14,8 +14,8 @@ public:
 	void run();
 
 	static constexpr double STEPS_PER_SECOND = 30.0;
-	static constexpr double TIME_STEP = 1.0 / STEPS_PER_SECOND;
-	static constexpr double MAX_STEP_SECONDS = 0.25;
+	static constexpr double TIME_STEP = (1.0 / STEPS_PER_SECOND) * 1000.0;
+	static constexpr double MAX_STEP_MILLISECONDS = 250;
 
 	sf::RenderWindow window;
 

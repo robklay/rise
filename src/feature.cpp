@@ -6,9 +6,7 @@ _num_coords(coords.size()) {}
 
 bool Feature::contains(const rok::Coordinate coord) const {
 	for (const rok::Coordinate c : _coords.coords_vector()) {
-		if (c == coord) {
-			return true;
-		}
+		if (c == coord) return true;
 	}
 
 	return false;

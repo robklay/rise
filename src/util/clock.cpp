@@ -4,6 +4,7 @@
 
 namespace rok {
 
+using Nanoseconds = std::chrono::nanoseconds;
 using SteadyClock = std::chrono::steady_clock;
 
 Clock::Clock() :
@@ -19,7 +20,7 @@ double Clock::elapsed_time(const Unit unit) const {
 
 	const SteadyClock::time_point current_time = SteadyClock::now();
 	const auto elapsed_time =
-		std::chrono::duration_cast<std::chrono::nanoseconds>(current_time - _start_time).count();
+		std::chrono::duration_cast<Nanoseconds>(current_time - _start_time).count();
 
 	switch (unit) {
 	case Unit::SECONDS:

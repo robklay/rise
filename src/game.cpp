@@ -8,7 +8,7 @@
 
 constexpr double Game::STEPS_PER_SECOND;
 constexpr double Game::TIME_STEP;
-constexpr double Game::MAX_STEP_SECONDS;
+constexpr double Game::MAX_STEP_MILLISECONDS;
 
 bool Game::_instantiated = false;
 
@@ -42,20 +42,15 @@ void Game::run() {
 	_step_clock.start();
 	while (_running) {
 		double elapsed_ms = _step_clock.elapsed_time(rok::Clock::Unit::MILLISECONDS);
-		_tick_time = std::min(elapsed_ms / static_cast<double>(rok::Clock::Unit::MILLISECONDS),
-		                      MAX_STEP_SECONDS);
+		_tick_time = std::min(elapsed_ms, MAX_STEP_MILLISECONDS);
 
 		_step_clock.start();
 
 		// Process SFML events.
 		sf::Event event;
 		while (window.pollEvent(event) != 0) {
-			if (event.type == sf::Event::Closed) {
-				_running = false;
-			}
-			else {
-				_active_scene->process_event(event);
-			}
+			if (event.type == sf::Event::Closed) _running = false;
+			else _active_scene->process_event(event);
 		}
 
 		// Process realtime input.
@@ -67,9 +62,7 @@ void Game::run() {
 			_accumulator -= TIME_STEP;
 
 			_next_scene = _active_scene->update();
-			if (_next_scene == _active_scene) {
-				_next_scene = nullptr;
-			}
+			if (_next_scene == _active_scene) _next_scene = nullptr;
 		}
 
 		// Draw the game.

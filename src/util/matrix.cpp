@@ -21,16 +21,16 @@ _size(matrix.size()) {
 
 template <typename T>
 Matrix<T>& Matrix<T>::operator=(const Matrix<T>& matrix) {
-	if (this != &matrix) {
-		resize(matrix._size.x, matrix._size.y);
-		std::copy_n(matrix.data(), _size.x * _size.y, _elements.begin());
-	}
+	Matrix<T> temp(matrix);
+	std::swap(*this, temp);
 
 	return *this;
 }
 
 template <typename T>
 void Matrix<T>::resize(const int32 x, const int32 y) {
+	assert(x >= 0 && y >= 0);
+
 	_size.x = x;
 	_size.y = y;
 	_elements.resize(x * y);
