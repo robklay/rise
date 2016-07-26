@@ -24,4 +24,8 @@ private:
 
 	double _camera_zoom;
 	sf::View _view;
+
+	bool _debug_mode;
+	sf::Font _debug_font;
+	sf::Text _debug_text;
 };
