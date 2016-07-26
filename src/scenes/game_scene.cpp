@@ -1,5 +1,6 @@
 #include "game_scene.hpp"
 
+#include "../util/math.hpp"
 #include "../util/sfml_helpers.hpp"
 
 constexpr double GameScene::CAMERA_SPEED;
@@ -9,27 +10,21 @@ constexpr double GameScene::CAMERA_MAX_ZOOM;
 
 GameScene::GameScene(sf::RenderWindow& window) :
 Scene(window),
+_camera_zoom(CAMERA_DEFAULT_ZOOM),
 _view(sf::FloatRect(0.0f, 0.0f,
-                    static_cast<float>(window.getSize().x),
-                    static_cast<float>(window.getSize().y))),
-_camera_zoom(1.0f) {}
+                    static_cast<float>(window.getSize().x * _camera_zoom),
+                    static_cast<float>(window.getSize().y * _camera_zoom))) {}
 
 void GameScene::process_event(const sf::Event event) {
 	if (event.type == sf::Event::MouseWheelScrolled) {
 		if (event.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel) {
-			float zoom_factor =
-				1.0f + event.mouseWheelScroll.delta * static_cast<float>(-CAMERA_ZOOM_SPEED);
-
-			if (_camera_zoom * zoom_factor < CAMERA_MIN_ZOOM) {
-				zoom_factor = static_cast<float>(_camera_zoom / CAMERA_MIN_ZOOM);
-			}
-			if (_camera_zoom * zoom_factor > CAMERA_MAX_ZOOM) {
-				zoom_factor = static_cast<float>(_camera_zoom / CAMERA_MAX_ZOOM);
-			}
+			double zoom_factor =
+				1.0 + static_cast<double>(event.mouseWheelScroll.delta) * -CAMERA_ZOOM_SPEED;
 
 			_camera_zoom *= zoom_factor;
-			//_camera_zoom = rok::clamp(_camera_zoom, CAMERA_MIN_ZOOM, CAMERA_MAX_ZOOM);
-			_view.zoom(zoom_factor);
+			_camera_zoom = rok::clamp(_camera_zoom, CAMERA_MIN_ZOOM, CAMERA_MAX_ZOOM);
+			_view.setSize(static_cast<float>(_window.getSize().x * _camera_zoom),
+			              static_cast<float>(_window.getSize().y * _camera_zoom));
 		}
 	}
 }

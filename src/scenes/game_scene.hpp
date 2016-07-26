@@ -16,11 +16,12 @@ private:
 	// TODO: Make camera moving and zooming better.
 	static constexpr double CAMERA_SPEED = 5.0;
 	static constexpr double CAMERA_ZOOM_SPEED = 0.25;
-	static constexpr double CAMERA_MIN_ZOOM = 0.25;
+	static constexpr double CAMERA_MIN_ZOOM = 0.1;
 	static constexpr double CAMERA_MAX_ZOOM = 4.0;
+	static constexpr double CAMERA_DEFAULT_ZOOM = 0.25;
 
 	World _world;
 
-	sf::View _view;
 	double _camera_zoom;
+	sf::View _view;
 };
