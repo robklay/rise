@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../world.hpp"
+#include "../simulation.hpp"
 #include "../scene.hpp"
 
 class GameScene : public Scene {
@@ -20,10 +20,13 @@ private:
 	static constexpr double CAMERA_MAX_ZOOM = 4.0;
 	static constexpr double CAMERA_DEFAULT_ZOOM = 0.25;
 
-	World _world;
+	Simulation _simulation;
 
 	double _camera_zoom;
 	sf::View _view;
+
+	sf::Font _ui_font;
+	sf::Text _step_text;
 
 	bool _debug_mode;
 	sf::Font _debug_font;

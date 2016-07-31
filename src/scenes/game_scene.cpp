@@ -17,6 +17,11 @@ _view(sf::FloatRect(0.0f, 0.0f,
                     static_cast<float>(window.getSize().x * _camera_zoom),
                     static_cast<float>(window.getSize().y * _camera_zoom))),
 _debug_mode(false) {
+	_ui_font.loadFromFile("data/fonts/roboto.ttf");
+	_step_text.setFont(_ui_font);
+	_step_text.setCharacterSize(24);
+	_step_text.setColor(sf::Color::Black);
+
 	_debug_font.loadFromFile("data/fonts/source_code_pro.ttf");
 	_debug_text.setFont(_debug_font);
 	_debug_text.setCharacterSize(24);
@@ -39,8 +44,25 @@ void GameScene::process_event(const sf::Event event) {
 	}
 
 	if (event.type == sf::Event::KeyPressed) {
-		if (event.key.code == sf::Keyboard::Tilde) {
+		switch (event.key.code) {
+		case sf::Keyboard::Num0:
+			_simulation.set_speed(Simulation::Speed::PAUSED);
+			break;
+		case sf::Keyboard::Num1:
+			_simulation.set_speed(Simulation::Speed::SPEED_1);
+			break;
+		case sf::Keyboard::Num2:
+			_simulation.set_speed(Simulation::Speed::SPEED_2);
+			break;
+		case sf::Keyboard::Num3:
+			_simulation.set_speed(Simulation::Speed::SPEED_3);
+			break;
+		case sf::Keyboard::Num4:
+			_simulation.set_speed(Simulation::Speed::SPEED_MAX);
+			break;
+		case sf::Keyboard::Tilde:
 			_debug_mode = !_debug_mode;
+			break;
 		}
 	}
 }
@@ -61,9 +83,21 @@ void GameScene::process_realtime_input() {
 }
 
 Scene* GameScene::update() {
+	_step_text.setString("Simulation Speed: " +
+	                     std::to_string(static_cast<int>(_simulation.speed())) + "\n" +
+	                     "Step " + std::to_string(_simulation.step_number()));
+	_step_text.setOrigin(_step_text.getLocalBounds().width, 0.0f);
+	_step_text.setPosition(_window.getSize().x - 25.0f, 25.0f);
+
+	_simulation.check_should_step();
+	if (_simulation.should_step()) {
+		_simulation.step();
+	}
+
 	if (_debug_mode) {
 		const sf::Vector2f mouse_pos =
 			_window.mapPixelToCoords(sf::Mouse::getPosition(_window), _view);
+
 		_debug_text.setString("Mouse Position: " + std::to_string(mouse_pos.x) + ", "
 		                                         + std::to_string(mouse_pos.y) + "\n" +
 		                      "Camera Zoom: " + std::to_string(_camera_zoom));
@@ -74,10 +108,13 @@ Scene* GameScene::update() {
 
 void GameScene::draw() {
 	_window.setView(_view);
-	_window.draw(_world);
+	_window.draw(_simulation);
+
+	_window.setView(_window.getDefaultView());
+
+	_window.draw(_step_text);
 
 	if (_debug_mode) {
-		_window.setView(_window.getDefaultView());
 		_window.draw(_debug_text);
 	}
 }

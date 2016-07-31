@@ -15,6 +15,10 @@ void Clock::start() {
 	_start_time = SteadyClock::now();
 }
 
+bool Clock::started() const {
+	return _started;
+}
+
 double Clock::elapsed_time(const Unit unit) const {
 	assert(_started);
 

@@ -41,7 +41,7 @@ void Game::run() {
 
 	_step_clock.start();
 	while (_running) {
-		double elapsed_ms = _step_clock.elapsed_time(rok::Clock::Unit::MILLISECONDS);
+		const double elapsed_ms = _step_clock.elapsed_time(rok::Clock::Unit::MILLISECONDS);
 		_tick_time = std::min(elapsed_ms, MAX_STEP_MILLISECONDS);
 
 		_step_clock.start();

@@ -17,6 +17,8 @@ public:
 
 	// Starts the timer. Restarts it if start() was called previously.
 	void start();
+	bool started() const;
+
 	// Returns the time since the most recent call to start() in the given unit.
 	// Crashes if start() hasn't been called.
 	double elapsed_time(const Unit unit) const;
