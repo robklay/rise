@@ -111,7 +111,6 @@ void GameScene::draw() {
 	_window.draw(_simulation);
 
 	_window.setView(_window.getDefaultView());
-
 	_window.draw(_step_text);
 
 	if (_debug_mode) {
