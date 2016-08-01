@@ -1,6 +1,7 @@
 #include "map.hpp"
 
-#include "river.hpp"
+#include "city.hpp"
+//#include "river.hpp"
 
 Map::Map(const rok::Coordinate size) :
 _size(size) {
@@ -18,6 +19,11 @@ _size(size) {
 		{ 3451, 403 },
 		{ 3452, 403 },
 	})));*/
+
+	_features.emplace_back(new City({ 3183, 379 }));
+	_features.emplace_back(new City({ 3278, 314 }));
+	_features.emplace_back(new City({ 3190, 325 }));
+	_features.emplace_back(new City({ 3195, 308 }));
 }
 
 rok::Coordinate Map::size() const {

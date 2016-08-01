@@ -2,22 +2,18 @@
 
 Simulation::Simulation() :
 _should_step(true),
-_speed(Speed::PAUSED),
-_map({ 5632, 2048 }) {
-	sf::Image heightmap_image;
-	heightmap_image.loadFromFile("data/heightmap.png");
-	_map.set_heightmap(rok::matrix_from_sf_image<rok::uint32>(heightmap_image));
-}
+_step_number(0),
+_speed(Speed::PAUSED) {}
 
 void Simulation::step() {
 	_should_step = false;
 
 	if (_speed == Speed::PAUSED) return;
-	_calendar.step();
+	++_step_number;
 }
 
 int Simulation::step_number() const {
-	return _calendar.step_number();
+	return _step_number;
 }
 
 void Simulation::check_should_step() {
@@ -51,5 +47,5 @@ Simulation::Speed Simulation::speed() const {
 }
 
 void Simulation::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-	target.draw(_map, states);
+	target.draw(_world, states);
 }

@@ -14,12 +14,12 @@ public:
 	virtual ~Feature() = default;
 
 	bool contains(const rok::Coordinate coord) const;
-	const rok::Coordinate* coords() const;
+	const rok::CoordinateList coords() const;
 	int num_coords() const;
 
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override = 0;
 
-private:
+protected:
 	rok::CoordinateList _coords;
 	int _num_coords;
 };

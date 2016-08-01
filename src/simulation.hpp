@@ -1,10 +1,8 @@
 #pragma once
 
 #include "util/clock.hpp"
-#include "util/sfml_helpers.hpp"
 
-#include "calendar.hpp"
-#include "map.hpp"
+#include "world.hpp"
 
 class Simulation : public rok::Drawable {
 public:
@@ -13,7 +11,7 @@ public:
 		SPEED_1 = 2000,
 		SPEED_2 = 1000,
 		SPEED_3 = 500,
-		SPEED_MAX, // Step as quickly as possible.
+		SPEED_MAX = 1, // Step as quickly as possible.
 	};
 
 	Simulation();
@@ -31,10 +29,10 @@ public:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
-	Calendar _calendar;
 	rok::Clock _clock;
 	bool _should_step;
+	int _step_number;
 	Speed _speed;
 
-	Map _map;
+	World _world;
 };

@@ -12,8 +12,8 @@ bool Feature::contains(const rok::Coordinate coord) const {
 	return false;
 }
 
-const rok::Coordinate* Feature::coords() const {
-	return _coords.coords_vector().data();
+const rok::CoordinateList Feature::coords() const {
+	return _coords;
 }
 
 int Feature::num_coords() const {
