@@ -7,26 +7,32 @@
 
 namespace rok {
 
-// A 2-dimensional std::vector-based container.
+// A 2-dimensional dynamic container.
 template <typename T>
 class Matrix {
 public:
-	Matrix(const Coordinate size = { 0, 0 });
+	Matrix() = default;
+	Matrix(const int32 size_x, const int32 size_y);
+	Matrix(const Coordinate size);
 	Matrix(const Matrix<T>& matrix);
 	Matrix<T>& operator=(const Matrix<T>& matrix);
 
-	void resize(const int32 x, const int32 y);
+	void resize(const int32 size_x, const int32 size_y);
+	void resize(const Coordinate size);
 	Coordinate size() const;
+	int32 num_elements() const;
 
-	// Returns a direct pointer to the memory array used internally.
+	// Returns a pointer to the memory array used internally.
 	const T* data() const;
 
-	void set_element(const int32 x, const int32 y, const T value);
-	T element(const int32 x, const int32 y) const;
+	T& element(const int32 x, const int32 y);
+	const T& element(const int32 x, const int32 y) const;
+	T& element(const Coordinate pos);
+	const T& element(const Coordinate pos) const;
 
 private:
-	Coordinate _size;
 	std::vector<T> _elements;
+	Coordinate _size;
 };
 
 } // namespace rok

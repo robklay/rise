@@ -22,13 +22,13 @@ private:
 
 	Simulation _simulation;
 
-	double _camera_zoom;
+	double _camera_zoom = CAMERA_DEFAULT_ZOOM;
 	sf::View _view;
 
 	sf::Font _ui_font;
 	sf::Text _step_text;
 
-	bool _debug_mode;
+	bool _debug_mode = false;
 	sf::Font _debug_font;
 	sf::Text _debug_text;
 };

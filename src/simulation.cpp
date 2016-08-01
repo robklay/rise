@@ -1,10 +1,5 @@
 #include "simulation.hpp"
 
-Simulation::Simulation() :
-_should_step(true),
-_step_number(0),
-_speed(Speed::PAUSED) {}
-
 void Simulation::step() {
 	_should_step = false;
 

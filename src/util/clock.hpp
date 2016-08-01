@@ -13,7 +13,7 @@ public:
 		NANOSECONDS = MICROSECONDS * 1000,
 	};
 
-	Clock();
+	Clock() = default;
 
 	// Starts the timer. Restarts it if start() was called previously.
 	void start();
@@ -25,7 +25,7 @@ public:
 
 private:
 	std::chrono::steady_clock::time_point _start_time;
-	bool _started;
+	bool _started = false;
 };
 
 } // namespace rok

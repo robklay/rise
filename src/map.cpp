@@ -31,26 +31,26 @@ rok::Coordinate Map::size() const {
 }
 
 void Map::set_heightmap(const rok::Matrix<rok::uint32>& matrix) {
-	_heightmap.resize(matrix.size().x, matrix.size().y);
+	_heightmap.resize(matrix.size());
+	_terrain.resize(matrix.size());
 
 	rok::Matrix<rok::uint32> terrain_colors;
-	_terrain.resize(matrix.size().x, matrix.size().y);
-	terrain_colors.resize(matrix.size().x, matrix.size().y);
+	terrain_colors.resize(matrix.size());
 
 	for (int i = 0; i < matrix.size().x; ++i) {
 		for (int j = 0; j < matrix.size().y; ++j) {
-			_heightmap.set_element(i, j, (matrix.element(i, j) >> 8) & 0xFF);
+			_heightmap.element(i, j) = (matrix.element(i, j) >> 8) & 0xFF;
 
 			if (_heightmap.element(i, j) <= 94) {
-				_terrain.set_element(i, j, Terrain::OCEAN);
+				_terrain.element(i, j) = Terrain::OCEAN;
 			} else if (_heightmap.element(i, j) <= 134) {
-				_terrain.set_element(i, j, Terrain::GRASSLAND);
+				_terrain.element(i, j) = Terrain::GRASSLAND;
 			} else {
-				_terrain.set_element(i, j, Terrain::HIGHLAND);
+				_terrain.element(i, j) = Terrain::HIGHLAND;
 			}
 
 			rok::Color color = rok::color_from_sf_color(terrain_color(_terrain.element(i, j)));
-			terrain_colors.set_element(i, j, color.as_int());
+			terrain_colors.element(i, j) = color.as_int();
 		}
 	}
 
@@ -63,4 +63,19 @@ void Map::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	for (const FeaturePtr& f : _features) {
 		target.draw(*f, states);
 	}
+}
+
+sf::Color Map::terrain_color(const Terrain terrain) const {
+	switch (terrain) {
+	case Terrain::OCEAN:
+		return sf::Color(0, 51, 204);
+	case Terrain::GRASSLAND:
+		return sf::Color(0, 153, 0);
+	case Terrain::HIGHLAND:
+		return sf::Color(102, 51, 0);
+	default:
+		assert(false);
+	}
+
+	return sf::Color::Black;
 }

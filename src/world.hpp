@@ -8,7 +8,7 @@ public:
 	World();
 	virtual ~World() = default;
 
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
 	Map _map;

@@ -4,8 +4,17 @@
 
 namespace rok {
 
-CoordinateList::CoordinateList() :
-_size(0) {}
+Coordinate::Coordinate(const int32 x, const int32 y) :
+x(x),
+y(y) {}
+
+bool Coordinate::operator==(const Coordinate right) const {
+	return x == right.x && y == right.y;
+}
+
+bool Coordinate::operator!=(const Coordinate right) const {
+	return !(*this == right);
+}
 
 CoordinateList::CoordinateList(const CoordinateVector& coords) :
 _coords(coords),
@@ -13,12 +22,9 @@ _size(coords.size()) {
 	if (_size > 0) {
 		_min = { coords[0].x, coords[0].y };
 		_max = { coords[0].x, coords[0].y };
-	} else {
-		_min = { 0, 0 };
-		_max = { 0, 0 };
-	}
 
-	reset_bounds();
+		reset_bounds();
+	}
 }
 
 void CoordinateList::add(const Coordinate coord) {
@@ -35,7 +41,7 @@ void CoordinateList::add(const Coordinate coord) {
 void CoordinateList::remove(const Coordinate coord) {
 	if (_size == 0) return;
 
-	auto it = std::find(_coords.begin(), _coords.end(), coord);
+	const auto it = std::find(_coords.begin(), _coords.end(), coord);
 	if (it == _coords.end()) return;
 
 	_coords.erase(it);

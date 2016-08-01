@@ -4,11 +4,15 @@
 namespace rok {
 
 template <typename T>
-Matrix<T>::Matrix(const Coordinate size) :
-_size(size),
-_elements(size.x * size.y) {
-	assert(size.x >= 0 && size.y >= 0);
+Matrix<T>::Matrix(const int32 size_x, const int32 size_y) :
+_elements(size_x * size_y),
+_size({ size_x, size_y }) {
+	assert(size_x >= 0 && size_y >= 0);
 }
+
+template <typename T>
+Matrix<T>::Matrix(const Coordinate size) :
+Matrix(size.x, size.y) {}
 
 template <typename T>
 Matrix<T>::Matrix(const Matrix<T>& matrix) :
@@ -28,12 +32,17 @@ Matrix<T>& Matrix<T>::operator=(const Matrix<T>& matrix) {
 }
 
 template <typename T>
-void Matrix<T>::resize(const int32 x, const int32 y) {
-	assert(x >= 0 && y >= 0);
+void Matrix<T>::resize(const int32 size_x, const int32 size_y) {
+	assert(size_x >= 0 && size_y >= 0);
 
-	_size.x = x;
-	_size.y = y;
-	_elements.resize(x * y);
+	_size.x = size_x;
+	_size.y = size_y;
+	_elements.resize(size_x * size_y);
+}
+
+template <typename T>
+void Matrix<T>::resize(const Coordinate size) {
+	resize(size.x, size.y);
 }
 
 template <typename T>
@@ -42,22 +51,37 @@ Coordinate Matrix<T>::size() const {
 }
 
 template <typename T>
+int32 Matrix<T>::num_elements() const {
+	return _size.x * _size.y;
+}
+
+template <typename T>
 const T* Matrix<T>::data() const {
 	return _elements.data();
 }
 
 template <typename T>
-void Matrix<T>::set_element(const int32 x, const int32 y, const T value) {
-	assert(x >= 0 && x <= _size.x && y >= 0 && y <= _size.y);
-
-	_elements[x + y * _size.x] = value;
-}
-
-template <typename T>
-T Matrix<T>::element(const int32 x, const int32 y) const {
+T& Matrix<T>::element(const int32 x, const int32 y) {
 	assert(x >= 0 && x <= _size.x && y >= 0 && y <= _size.y);
 
 	return _elements[x + y * _size.x];
+}
+
+template <typename T>
+const T& Matrix<T>::element(const int32 x, const int32 y) const {
+	assert(x >= 0 && x <= _size.x && y >= 0 && y <= _size.y);
+
+	return _elements[x + y * _size.x];
+}
+
+template <typename T>
+T& Matrix<T>::element(const Coordinate pos) {
+	return element(pos.x, pos.y);
+}
+
+template <typename T>
+const T& Matrix<T>::element(const Coordinate pos) const {
+	return element(pos.x, pos.y);
 }
 
 } // namespace rok

@@ -14,19 +14,17 @@ public:
 	void run();
 
 	static constexpr double STEPS_PER_SECOND = 30.0;
-	static constexpr double TIME_STEP = (1.0 / STEPS_PER_SECOND) * 1000.0;
-	static constexpr double MAX_STEP_MILLISECONDS = 250;
+	static constexpr double TIME_STEP_MS = (1.0 / STEPS_PER_SECOND) * 1000.0;
+	static constexpr double MAX_STEP_MS = 250;
 
 	sf::RenderWindow window;
 
 private:
-	static bool _instantiated;
+	bool _running = false;
 
-	bool _running;
-	Scene* _active_scene;
-	Scene* _next_scene;
+	Scene* _active_scene = nullptr;
+	Scene* _next_scene = nullptr;
 
 	rok::Clock _step_clock;
-	double _tick_time;
-	double _accumulator;
+	double _accumulator = 0.0;
 };

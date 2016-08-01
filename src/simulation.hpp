@@ -14,7 +14,7 @@ public:
 		SPEED_MAX = 1, // Step as quickly as possible.
 	};
 
-	Simulation();
+	Simulation() = default;
 	virtual ~Simulation() = default;
 
 	void step();
@@ -26,13 +26,13 @@ public:
 	void set_speed(const Speed speed);
 	Speed speed() const;
 
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
 	rok::Clock _clock;
-	bool _should_step;
-	int _step_number;
-	Speed _speed;
+	bool _should_step = true;
+	int _step_number = 0;
+	Speed _speed = Speed::PAUSED;
 
 	World _world;
 };

@@ -1,7 +1,7 @@
 #include "city.hpp"
 
 City::City(const rok::Coordinate coord) :
-Feature(rok::CoordinateVector{ coord }) {
+Feature(rok::CoordinateVector { coord }) {
 	_sprite.setPosition(static_cast<float>(coord.x), static_cast<float>(coord.y));
 	_sprite.setSize({ 1.0f, 1.0f });
 	_sprite.setFillColor(sf::Color::Black);

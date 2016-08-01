@@ -12,11 +12,9 @@ constexpr double GameScene::CAMERA_MAX_ZOOM;
 
 GameScene::GameScene(sf::RenderWindow& window) :
 Scene(window),
-_camera_zoom(CAMERA_DEFAULT_ZOOM),
 _view(sf::FloatRect(0.0f, 0.0f,
                     static_cast<float>(window.getSize().x * _camera_zoom),
-                    static_cast<float>(window.getSize().y * _camera_zoom))),
-_debug_mode(false) {
+                    static_cast<float>(window.getSize().y * _camera_zoom))) {
 	_ui_font.loadFromFile("data/fonts/roboto.ttf");
 	_step_text.setFont(_ui_font);
 	_step_text.setCharacterSize(24);
@@ -90,9 +88,7 @@ Scene* GameScene::update() {
 	_step_text.setPosition(_window.getSize().x - 25.0f, 25.0f);
 
 	_simulation.check_should_step();
-	if (_simulation.should_step()) {
-		_simulation.step();
-	}
+	if (_simulation.should_step()) _simulation.step();
 
 	if (_debug_mode) {
 		const sf::Vector2f mouse_pos =
@@ -113,7 +109,5 @@ void GameScene::draw() {
 	_window.setView(_window.getDefaultView());
 	_window.draw(_step_text);
 
-	if (_debug_mode) {
-		_window.draw(_debug_text);
-	}
+	if (_debug_mode) _window.draw(_debug_text);
 }

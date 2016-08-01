@@ -7,25 +7,21 @@
 namespace rok {
 
 struct Coordinate {
-	Coordinate(int32 x = 0, int32 y = 0) : x(x), y(y) {}
+	Coordinate() = default;
+	Coordinate(const int32 x, const int32 y);
+
+	bool operator==(const Coordinate right) const;
+	bool operator!=(const Coordinate right) const;
 
 	int32 x = 0;
 	int32 y = 0;
 };
 
-inline bool operator==(Coordinate left, Coordinate right) {
-	return left.x == right.x && left.y == right.y;
-}
-
-inline bool operator!=(Coordinate left, Coordinate right) {
-	return left.x != right.x || left.y != right.y;
-}
-
 using CoordinateVector = std::vector<Coordinate>;
 
 class CoordinateList {
 public:
-	CoordinateList();
+	CoordinateList() = default;
 	CoordinateList(const CoordinateVector& coords);
 
 	void add(const Coordinate coord);
@@ -48,7 +44,7 @@ private:
 	void reset_bounds();
 
 	CoordinateVector _coords;
-	int _size;
+	int _size = 0;
 
 	Coordinate _min;
 	Coordinate _max;

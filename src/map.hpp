@@ -11,30 +11,16 @@
 
 #include "feature.hpp"
 
-enum class Terrain : rok::uint8 {
-	OCEAN,
-	GRASSLAND,
-	HIGHLAND,
-};
-
-inline sf::Color terrain_color(const Terrain terrain) {
-	switch (terrain) {
-	case Terrain::OCEAN:
-		return sf::Color(0, 51, 204);
-	case Terrain::GRASSLAND:
-		return sf::Color(0, 153, 0);
-	case Terrain::HIGHLAND:
-		return sf::Color(102, 51, 0);
-	default:
-		assert(false);
-	}
-
-	return sf::Color::Black;
-}
-
 class Map : public rok::Drawable {
 public:
-	Map(const rok::Coordinate size = { 0, 0 });
+	enum class Terrain : rok::uint8 {
+		OCEAN,
+		GRASSLAND,
+		HIGHLAND,
+	};
+
+	Map() = default;
+	Map(const rok::Coordinate size);
 	virtual ~Map() = default;
 
 	rok::Coordinate size() const;
@@ -45,6 +31,8 @@ public:
 
 private:
 	using FeaturePtr = std::unique_ptr<Feature>;
+
+	sf::Color terrain_color(const Terrain terrain) const;
 
 	const rok::Coordinate _size;
 

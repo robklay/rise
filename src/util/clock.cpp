@@ -7,9 +7,6 @@ namespace rok {
 using Nanoseconds = std::chrono::nanoseconds;
 using SteadyClock = std::chrono::steady_clock;
 
-Clock::Clock() :
-_started(false) {}
-
 void Clock::start() {
 	_started = true;
 	_start_time = SteadyClock::now();

@@ -1,12 +1,9 @@
 #pragma once
 
-#include <vector>
-
 #include <SFML/Graphics.hpp>
 
 #include "util/coordinate.hpp"
 #include "util/sfml_helpers.hpp"
-#include "util/types.hpp"
 
 class Feature : public rok::Drawable {
 public:
@@ -21,5 +18,5 @@ public:
 
 protected:
 	rok::CoordinateList _coords;
-	int _num_coords;
+	int _num_coords = 0;
 };

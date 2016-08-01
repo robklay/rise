@@ -4,19 +4,23 @@
 
 namespace rok {
 
-// A 32-bit color class.
+// A 32-bit color.
 class Color {
 public:
-	Color(const uint8 r = 0, const uint8 g = 0, const uint8 b = 0, const uint8 a = 0);
-	Color(const uint32 color = 0);
+	Color() = default;
+	Color(const uint8 r, const uint8 g, const uint8 b, const uint8 a);
+	Color(const uint32 color);
+
+	bool operator==(const Color right) const;
+	bool operator!=(const Color right) const;
 
 	// Returns the color as a uint32.
 	uint32 as_int() const;
 
-	uint8 r;
-	uint8 g;
-	uint8 b;
-	uint8 a;
+	uint8 r = 0;
+	uint8 g = 0;
+	uint8 b = 0;
+	uint8 a = 0;
 };
 
 } // namespace rok

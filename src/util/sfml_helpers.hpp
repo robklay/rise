@@ -22,12 +22,13 @@ Matrix<T> matrix_from_sf_image(const sf::Image& sf_image) {
 	static_assert(is_32_bit, "matrix_from_sf_image() only supports types int32 and uint32");
 
 	Matrix<T> matrix;
-	sf::Vector2u size = sf_image.getSize();
+	rok::Coordinate size { static_cast<rok::int32>(sf_image.getSize().x),
+	                       static_cast<rok::int32>(sf_image.getSize().y) };
 
-	matrix.resize(size.x, size.y);
-	for (size_t i = 0; i < size.x; ++i) {
-		for (size_t j = 0; j < size.y; ++j) {
-			matrix.set_element(i, j, static_cast<T>(sf_image.getPixel(i, j).toInteger()));
+	matrix.resize(size);
+	for (int i = 0; i < size.x; ++i) {
+		for (int j = 0; j < size.y; ++j) {
+			matrix.element(i, j) = static_cast<T>(sf_image.getPixel(i, j).toInteger());
 		}
 	}
 
