@@ -5,6 +5,8 @@ void Simulation::step() {
 
 	if (_speed == Speed::PAUSED) return;
 	++_step_number;
+
+	_world.update();
 }
 
 int Simulation::step_number() const {

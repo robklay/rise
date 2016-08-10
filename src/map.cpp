@@ -19,11 +19,6 @@ _size(size) {
 		{ 3451, 403 },
 		{ 3452, 403 },
 	})));*/
-
-	_features.emplace_back(new City({ 3183, 379 }));
-	_features.emplace_back(new City({ 3278, 314 }));
-	_features.emplace_back(new City({ 3190, 325 }));
-	_features.emplace_back(new City({ 3195, 308 }));
 }
 
 rok::Coordinate Map::size() const {
@@ -60,6 +55,7 @@ void Map::set_heightmap(const rok::Matrix<rok::uint32>& matrix) {
 
 void Map::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	target.draw(_terrain_sprite, states);
+
 	for (const FeaturePtr& f : _features) {
 		target.draw(*f, states);
 	}

@@ -9,6 +9,7 @@
 #include "util/sfml_helpers.hpp"
 #include "util/types.hpp"
 
+#include "city.hpp"
 #include "feature.hpp"
 
 class Map : public rok::Drawable {
@@ -31,11 +32,13 @@ public:
 
 private:
 	using FeaturePtr = std::unique_ptr<Feature>;
+	using CityPtr = std::unique_ptr<City>;
 
 	sf::Color terrain_color(const Terrain terrain) const;
 
 	const rok::Coordinate _size;
 
+	// TODO: Consider moving features to World.
 	rok::Matrix<rok::uint8> _heightmap;
 	rok::Matrix<Terrain> _terrain;
 	std::vector<FeaturePtr> _features;

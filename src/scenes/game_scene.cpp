@@ -81,14 +81,25 @@ void GameScene::process_realtime_input() {
 }
 
 Scene* GameScene::update() {
+	_simulation.check_should_step();
+	if (_simulation.should_step()) _simulation.step();
+
+	return this;
+}
+
+void GameScene::draw() {
+	_window.setView(_view);
+
+	_window.draw(_simulation);
+
+	_window.setView(_window.getDefaultView());
+
 	_step_text.setString("Simulation Speed: " +
 	                     std::to_string(static_cast<int>(_simulation.speed())) + "\n" +
 	                     "Step " + std::to_string(_simulation.step_number()));
 	_step_text.setOrigin(_step_text.getLocalBounds().width, 0.0f);
 	_step_text.setPosition(_window.getSize().x - 25.0f, 25.0f);
-
-	_simulation.check_should_step();
-	if (_simulation.should_step()) _simulation.step();
+	_window.draw(_step_text);
 
 	if (_debug_mode) {
 		const sf::Vector2f mouse_pos =
@@ -97,17 +108,7 @@ Scene* GameScene::update() {
 		_debug_text.setString("Mouse Position: " + std::to_string(mouse_pos.x) + ", "
 		                                         + std::to_string(mouse_pos.y) + "\n" +
 		                      "Camera Zoom: " + std::to_string(_camera_zoom));
+
+		_window.draw(_debug_text);
 	}
-
-	return this;
-}
-
-void GameScene::draw() {
-	_window.setView(_view);
-	_window.draw(_simulation);
-
-	_window.setView(_window.getDefaultView());
-	_window.draw(_step_text);
-
-	if (_debug_mode) _window.draw(_debug_text);
 }

@@ -8,14 +8,6 @@ Coordinate::Coordinate(const int32 x, const int32 y) :
 x(x),
 y(y) {}
 
-bool Coordinate::operator==(const Coordinate right) const {
-	return x == right.x && y == right.y;
-}
-
-bool Coordinate::operator!=(const Coordinate right) const {
-	return !(*this == right);
-}
-
 CoordinateList::CoordinateList(const CoordinateVector& coords) :
 _coords(coords),
 _size(coords.size()) {

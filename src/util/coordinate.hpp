@@ -10,12 +10,17 @@ struct Coordinate {
 	Coordinate() = default;
 	Coordinate(const int32 x, const int32 y);
 
-	bool operator==(const Coordinate right) const;
-	bool operator!=(const Coordinate right) const;
-
 	int32 x = 0;
 	int32 y = 0;
 };
+
+inline bool operator==(const Coordinate left, const Coordinate right) {
+	return left.x == right.x && left.y == right.y;
+}
+
+inline bool operator!=(const Coordinate left, const Coordinate right) {
+	return !(left == right);
+}
 
 using CoordinateVector = std::vector<Coordinate>;
 
