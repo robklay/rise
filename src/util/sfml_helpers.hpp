@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cassert>
 #include <cstdint>
 #include <type_traits>
 
@@ -11,7 +12,7 @@
 namespace rok {
 
 // Tools that help deal with a using a mixure of SFML and Rok utilities in the code.
-// This file keeps the game's code relatively independent of SFML so that if needed,
+// This file keeps the game's code relatively independent of SFML so that, if needed,
 // SFML can be removed.
 
 // Creates and returns a rok::Matrix of the desired type based on an sf::Image.
@@ -22,8 +23,9 @@ Matrix<T> matrix_from_sf_image(const sf::Image& sf_image) {
 	static_assert(is_32_bit, "matrix_from_sf_image() only supports types int32 and uint32");
 
 	Matrix<T> matrix;
-	rok::Coordinate size { static_cast<rok::int32>(sf_image.getSize().x),
-	                       static_cast<rok::int32>(sf_image.getSize().y) };
+	rok::Coordinate size {
+		static_cast<rok::int32>(sf_image.getSize().x),
+		static_cast<rok::int32>(sf_image.getSize().y) };
 
 	matrix.resize(size);
 	for (int i = 0; i < size.x; ++i) {
@@ -45,8 +47,8 @@ sf::Image sf_image_from_matrix(const Matrix<T>& matrix) {
 	const bool is_8_bit = std::is_same<T, int8>::value || std::is_same<T, uint8>::value;
 
 	static_assert(is_32_bit || is_8_bit,
-	              "sf_image_from_matrix() only supports Matrices "
-	              "of types int32, uint32, int8, and uint8");
+		"sf_image_from_matrix() only supports Matrices "
+		"of types int32, uint32, int8, and uint8");
 
 	sf::Image sf_image;
 	sf_image.create(matrix.size().x, matrix.size().y);

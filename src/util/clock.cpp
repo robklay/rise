@@ -4,6 +4,9 @@
 
 namespace rok {
 
+using Seconds = std::chrono::seconds;
+using Milliseconds = std::chrono::milliseconds;
+using Microseconds = std::chrono::microseconds;
 using Nanoseconds = std::chrono::nanoseconds;
 using SteadyClock = std::chrono::steady_clock;
 
@@ -37,6 +40,22 @@ double Clock::elapsed_time(const Unit unit) const {
 	}
 
 	return 0.0;
+}
+
+uint64 Clock::now(const Unit unit) const {
+	const SteadyClock::time_point current_time = SteadyClock::now();
+	const auto time = current_time.time_since_epoch().count();
+
+	switch (unit) {
+	case Unit::SECONDS:
+		return static_cast<uint64>(time / static_cast<double>(Unit::MILLISECONDS));
+	case Unit::MILLISECONDS:
+		return static_cast<uint64>(time);
+	default:
+		assert(false);
+	}
+
+	return 0;
 }
 
 } // namespace rok

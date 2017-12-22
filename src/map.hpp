@@ -9,11 +9,16 @@
 #include "util/sfml_helpers.hpp"
 #include "util/types.hpp"
 
-#include "city.hpp"
-#include "feature.hpp"
+//#include "settlement.hpp"
+//#include "feature.hpp"
 
 class Map : public rok::Drawable {
 public:
+	enum class MapMode {
+		TERRAIN,
+		POLITICAL,
+	};
+
 	enum class Terrain : rok::uint8 {
 		OCEAN,
 		GRASSLAND,
@@ -31,18 +36,16 @@ public:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
-	using FeaturePtr = std::unique_ptr<Feature>;
-	using CityPtr = std::unique_ptr<City>;
-
-	sf::Color terrain_color(const Terrain terrain) const;
-
 	const rok::Coordinate _size;
+	MapMode _map_mode;
 
-	// TODO: Consider moving features to World.
 	rok::Matrix<rok::uint8> _heightmap;
+
 	rok::Matrix<Terrain> _terrain;
-	std::vector<FeaturePtr> _features;
+	rok::Matrix<rok::uint16> _owner;
 
 	sf::Texture _terrain_texture;
+	sf::Texture _political_texture;
 	sf::Sprite _terrain_sprite;
+	sf::Sprite _political_sprite;
 };

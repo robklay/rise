@@ -2,11 +2,11 @@
 
 namespace rok {
 
-Color::Color(const uint8 r, const uint8 g, const uint8 b, const uint8 a) :
-r(r),
-g(g),
-b(b),
-a(a) {}
+Color::Color(const uint8 r, const uint8 g, const uint8 b, const uint8 a)
+	: r(r)
+	, g(g)
+	, b(b)
+	, a(a) {}
 
 Color::Color(const uint32 color) {
 	const uint8* pixel = reinterpret_cast<const uint8*>(&color);

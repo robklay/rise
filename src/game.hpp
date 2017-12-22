@@ -25,6 +25,6 @@ private:
 	Scene* _active_scene = nullptr;
 	Scene* _next_scene = nullptr;
 
-	rok::Clock _step_clock;
+	rok::Clock _clock;
 	double _accumulator = 0.0;
 };

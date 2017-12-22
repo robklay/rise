@@ -8,7 +8,7 @@ namespace rok {
 class Color {
 public:
 	Color() = default;
-	Color(const uint8 r, const uint8 g, const uint8 b, const uint8 a);
+	Color(const uint8 r, const uint8 g, const uint8 b, const uint8 a = 255);
 	Color(const uint32 color);
 
 	bool operator==(const Color right) const;

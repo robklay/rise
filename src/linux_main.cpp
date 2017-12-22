@@ -1,6 +1,6 @@
 #include "game_main.hpp"
 
-int main(int argc, char** argv) {
+int main() {
 	game_main();
 
 	return 0;

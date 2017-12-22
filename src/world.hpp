@@ -5,7 +5,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "city.hpp"
+#include "settlement.hpp"
 #include "map.hpp"
 
 class World : public rok::Drawable {
@@ -20,10 +20,10 @@ public:
 	const sf::Font& city_font() const { return _city_font; }
 
 private:
-	using CityUPtr = std::unique_ptr<City>;
+	using SettlementUPtr = std::unique_ptr<Settlement>;
 
 	Map _map;
-	std::vector<CityUPtr> _cities;
+	std::vector<SettlementUPtr> _settlements;
 
 	sf::Font _city_font;
 };

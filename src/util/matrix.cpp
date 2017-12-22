@@ -4,19 +4,19 @@
 namespace rok {
 
 template <typename T>
-Matrix<T>::Matrix(const int32 size_x, const int32 size_y) :
-_elements(size_x * size_y),
-_size({ size_x, size_y }) {
+Matrix<T>::Matrix(const int32 size_x, const int32 size_y)
+		: _elements(size_x * size_y)
+		, _size({ size_x, size_y }) {
 	assert(size_x >= 0 && size_y >= 0);
 }
 
 template <typename T>
-Matrix<T>::Matrix(const Coordinate size) :
-Matrix(size.x, size.y) {}
+Matrix<T>::Matrix(const Coordinate size)
+	: Matrix(size.x, size.y) {}
 
 template <typename T>
-Matrix<T>::Matrix(const Matrix<T>& matrix) :
-_size(matrix.size()) {
+Matrix<T>::Matrix(const Matrix<T>& matrix)
+		: _size(matrix.size()) {
 	if (this != &matrix) {
 		resize(matrix._size.x, matrix._size.y);
 		std::copy_n(matrix.data(), _size.x * _size.y, _elements.begin());

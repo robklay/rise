@@ -9,9 +9,9 @@ namespace rok {
 
 template <typename T>
 class Vector2 {
-public:
-	static_assert(std::is_arithmetic<T>::value, "Type of Vector2 must be arithmetic");
+	static_assert(std::is_arithmetic<T>::value, "type of Vector2 must be arithmetic");
 
+public:
 	Vector2() = default;
 	Vector2(const T x, const T y) : x(x), y(y) {}
 

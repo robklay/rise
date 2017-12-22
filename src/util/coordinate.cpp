@@ -4,13 +4,13 @@
 
 namespace rok {
 
-Coordinate::Coordinate(const int32 x, const int32 y) :
-x(x),
-y(y) {}
+Coordinate::Coordinate(const int32 x, const int32 y)
+	: x(x)
+	, y(y) {}
 
-CoordinateList::CoordinateList(const CoordinateVector& coords) :
-_coords(coords),
-_size(coords.size()) {
+Region::Region(const CoordinateVector& coords)
+		: _coords(coords)
+		, _size(coords.size()) {
 	if (_size > 0) {
 		_min = { coords[0].x, coords[0].y };
 		_max = { coords[0].x, coords[0].y };
@@ -19,7 +19,7 @@ _size(coords.size()) {
 	}
 }
 
-void CoordinateList::add(const Coordinate coord) {
+void Region::add(const Coordinate coord) {
 	if (_size == 0) {
 		_min = { coord.x, coord.y };
 		_max = { coord.x, coord.y };
@@ -30,7 +30,7 @@ void CoordinateList::add(const Coordinate coord) {
 	++_size;
 }
 
-void CoordinateList::remove(const Coordinate coord) {
+void Region::remove(const Coordinate coord) {
 	if (_size == 0) return;
 
 	const auto it = std::find(_coords.begin(), _coords.end(), coord);
@@ -46,34 +46,34 @@ void CoordinateList::remove(const Coordinate coord) {
 	reset_bounds();
 }
 
-bool CoordinateList::contains(const Coordinate coord) const {
+bool Region::contains(const Coordinate coord) const {
 	return std::find(_coords.begin(), _coords.end(), coord) != _coords.end();
 }
 
-int CoordinateList::size() const {
+int Region::size() const {
 	return _size;
 }
 
-Coordinate CoordinateList::min() const {
+Coordinate Region::min() const {
 	return _min;
 }
 
-Coordinate CoordinateList::max() const {
+Coordinate Region::max() const {
 	return _max;
 }
 
-const CoordinateVector& CoordinateList::coords_vector() const {
+const CoordinateVector& Region::coords_vector() const {
 	return _coords;
 }
 
-void CoordinateList::update_bounds(const Coordinate coord) {
+void Region::update_bounds(const Coordinate coord) {
 	if (coord.x < _min.x) _min.x = coord.x;
 	if (coord.y < _min.y) _min.y = coord.y;
 	if (coord.x > _max.x) _max.x = coord.x;
 	if (coord.y > _max.y) _max.y = coord.y;
 }
 
-void CoordinateList::reset_bounds() {
+void Region::reset_bounds() {
 	for (const Coordinate& c : _coords) {
 		update_bounds(c);
 	}

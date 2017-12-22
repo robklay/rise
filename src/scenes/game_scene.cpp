@@ -10,11 +10,11 @@ constexpr double GameScene::CAMERA_ZOOM_SPEED;
 constexpr double GameScene::CAMERA_MIN_ZOOM;
 constexpr double GameScene::CAMERA_MAX_ZOOM;
 
-GameScene::GameScene(sf::RenderWindow& window) :
-Scene(window),
-_view(sf::FloatRect(0.0f, 0.0f,
-                    static_cast<float>(window.getSize().x * _camera_zoom),
-                    static_cast<float>(window.getSize().y * _camera_zoom))) {
+GameScene::GameScene(sf::RenderWindow& window)
+		: Scene(window)
+		, _view(sf::FloatRect(0.0f, 0.0f,
+			static_cast<float>(window.getSize().x * _camera_zoom),
+			static_cast<float>(window.getSize().y * _camera_zoom))) {
 	_ui_font.loadFromFile("data/fonts/roboto.ttf");
 	_step_text.setFont(_ui_font);
 	_step_text.setCharacterSize(24);
@@ -28,6 +28,8 @@ _view(sf::FloatRect(0.0f, 0.0f,
 }
 
 void GameScene::process_event(const sf::Event event) {
+	// _ui.process_event(event);
+
 	// Camera zooming.
 	if (event.type == sf::Event::MouseWheelScrolled) {
 		if (event.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel) {
@@ -36,8 +38,9 @@ void GameScene::process_event(const sf::Event event) {
 
 			_camera_zoom *= zoom_factor;
 			_camera_zoom = rok::clamp(_camera_zoom, CAMERA_MIN_ZOOM, CAMERA_MAX_ZOOM);
-			_view.setSize(static_cast<float>(_window.getSize().x * _camera_zoom),
-			              static_cast<float>(_window.getSize().y * _camera_zoom));
+			_view.setSize(
+				static_cast<float>(_window.getSize().x * _camera_zoom),
+				static_cast<float>(_window.getSize().y * _camera_zoom));
 		}
 	}
 
@@ -94,9 +97,9 @@ void GameScene::draw() {
 
 	_window.setView(_window.getDefaultView());
 
-	_step_text.setString("Simulation Speed: " +
-	                     std::to_string(static_cast<int>(_simulation.speed())) + "\n" +
-	                     "Step " + std::to_string(_simulation.step_number()));
+	_step_text.setString(
+		"Simulation Speed: " + std::to_string(static_cast<int>(_simulation.speed())) + "\n" +
+		"Step " + std::to_string(_simulation.step_number()));
 	_step_text.setOrigin(_step_text.getLocalBounds().width, 0.0f);
 	_step_text.setPosition(_window.getSize().x - 25.0f, 25.0f);
 	_window.draw(_step_text);
@@ -105,9 +108,10 @@ void GameScene::draw() {
 		const sf::Vector2f mouse_pos =
 			_window.mapPixelToCoords(sf::Mouse::getPosition(_window), _view);
 
-		_debug_text.setString("Mouse Position: " + std::to_string(mouse_pos.x) + ", "
-		                                         + std::to_string(mouse_pos.y) + "\n" +
-		                      "Camera Zoom: " + std::to_string(_camera_zoom));
+		_debug_text.setString(
+			"Mouse Position: " + std::to_string(mouse_pos.x) + ", " +
+			std::to_string(mouse_pos.y) + "\n" +
+			"Camera Zoom: " + std::to_string(_camera_zoom));
 
 		_window.draw(_debug_text);
 	}

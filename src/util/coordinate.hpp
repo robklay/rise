@@ -24,10 +24,10 @@ inline bool operator!=(const Coordinate left, const Coordinate right) {
 
 using CoordinateVector = std::vector<Coordinate>;
 
-class CoordinateList {
+class Region {
 public:
-	CoordinateList() = default;
-	CoordinateList(const CoordinateVector& coords);
+	Region() = default;
+	Region(const CoordinateVector& coords);
 
 	void add(const Coordinate coord);
 	void remove(const Coordinate coord);

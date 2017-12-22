@@ -28,12 +28,12 @@ void Game::run() {
 
 	_running = true;
 
-	_step_clock.start();
+	_clock.start();
 	while (_running) {
 		const double _step_ms =
-			std::min(_step_clock.elapsed_time(rok::Clock::Unit::MILLISECONDS), MAX_STEP_MS);
+			std::min(_clock.elapsed_time(rok::Clock::Unit::MILLISECONDS), MAX_STEP_MS);
 
-		_step_clock.start();
+		_clock.start();
 
 		// Process SFML events.
 		sf::Event event;
@@ -46,7 +46,6 @@ void Game::run() {
 		_active_scene->process_realtime_input();
 
 		// Update the game.
-		_next_scene = _active_scene;
 		_accumulator += _step_ms;
 		while (_accumulator >= TIME_STEP_MS) {
 			_next_scene = _active_scene->update();
@@ -59,7 +58,7 @@ void Game::run() {
 		window.display();
 
 		// Switches the active scene to the next scene if they are not the same.
-		if (_next_scene != _active_scene) {
+		if (_next_scene != nullptr && _next_scene != _active_scene) {
 			delete _active_scene;
 			_active_scene = _next_scene;
 			_next_scene = nullptr;

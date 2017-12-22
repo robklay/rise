@@ -1,19 +1,19 @@
 #include "feature.hpp"
 
-Feature::Feature(const rok::CoordinateList& coords) :
-_coords(coords.coords_vector()),
-_num_coords(coords.size()) {}
+Feature::Feature(const rok::Region& region)
+	: _region(region.coords_vector())
+	, _num_coords(region.size()) {}
 
 bool Feature::contains(const rok::Coordinate coord) const {
-	for (const rok::Coordinate c : _coords.coords_vector()) {
+	for (const rok::Coordinate c : _region.coords_vector()) {
 		if (c == coord) return true;
 	}
 
 	return false;
 }
 
-const rok::CoordinateList Feature::coords() const {
-	return _coords;
+const rok::Region Feature::region() const {
+	return _region;
 }
 
 int Feature::num_coords() const {

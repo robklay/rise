@@ -2,6 +2,8 @@
 
 #include <chrono>
 
+#include "types.hpp"
+
 namespace rok {
 
 class Clock {
@@ -22,6 +24,7 @@ public:
 	// Returns the time since the most recent call to start() in the given unit.
 	// Crashes if start() hasn't been called.
 	double elapsed_time(const Unit unit) const;
+	uint64 now(const Unit unit) const;
 
 private:
 	std::chrono::steady_clock::time_point _start_time;
